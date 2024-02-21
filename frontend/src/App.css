@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.ant-table {
+  background-color: #fafafa !important;
+}
+.ant-menu {
+  background-color: #194569 !important;
+}
+.ant-modal-content {
+  /* width: 1000px;
+  height: 600px !important;
+  display: flex;
+  flex-direction: column; */
+}
+.ant-modal-footer {
+  display: flex;
+  justify-content: center;
+  bottom: 5px !important;
+}
+.ant-modal-header {
+  display: flex;
+  justify-content: center;
+  bottom: 5px !important;
+}
+.ant-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between !important;
+}
+.ant-table-cell {
+  padding: 3px 3px !important;
+  border-bottom: none;
+}
+/* .ant-list {
+  width: 50%;
+} */

@@ -1,0 +1,105 @@
+.buttonContainer {
+  display: flex;
+  align-items: center;
+
+  text-align: center;
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  width: 80%;
+}
+
+.iconButtons {
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-left: 200px;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.iconButton {
+  color: #fff;
+  border: none;
+  /* padding: 8px; */
+  border-radius: 4px;
+  cursor: pointer;
+  /* margin-right: 5px; */
+}
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination a {
+  color: #3498db;
+  padding: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination a:hover {
+  background-color: #f2f2f2;
+}
+
+.pagination .active {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: default;
+}
+.more {
+  text-align: center;
+}
+button {
+  background-color: slateblue;
+
+  margin-bottom: 20px;
+}
+.modalTest {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+}
+.modalTest1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.listItem {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconButton {
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.iconButton:hover {
+  background-color: #2077c8;
+}
+h4 {
+  display: inline;
+}
+.enjuryButton {
+  top: 70px;
+}

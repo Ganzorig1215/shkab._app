@@ -1,0 +1,189 @@
+/* Base styles for larger screens */
+.loginSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+  background-position: center;
+  background-size: cover;
+  flex-direction: column;
+}
+
+.formBox {
+  position: relative;
+  width: 400px;
+  height: 500px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  font-size: 2em;
+  color: #1f1f1f;
+  text-align: center;
+}
+
+.inputBox {
+  position: relative;
+  margin: 30px 0;
+  min-width: 310px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.inputBox label {
+  position: absolute;
+  top: 0%;
+  left: 0px;
+  transform: translateY(-70%);
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.inputBox input {
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 10px;
+  color: #1f1f1f;
+}
+
+.inputBox input:focus ~ label {
+  margin-top: -10px;
+  left: 10px;
+  font-size: 16px;
+}
+
+.forget {
+  margin: -15px 0 15px;
+  font-size: 0.9em;
+  color: #1f1f1f;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: solid 1px;
+  border-color: #1f1f1f;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+}
+.button:hover {
+  border: solid 1px;
+  border-color: #1f1f1f;
+  background-color: #6a5acd;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+}
+.toast {
+  color: #f5f5f5;
+  background-color: #f5f5f5;
+}
+/* Media query for smaller screens (e.g., mobile devices) */
+@media screen and (max-width: 600px) {
+  .formBox {
+    width: 80%;
+    height: 80%;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+  }
+
+  .inputBox {
+    min-width: 100%;
+  }
+
+  .button {
+    width: 80%;
+  }
+}
+
+/* .register {
+  font-size: 0.9em;
+  color: #1f1f1f;
+
+  margin: 25px 0 10px;
+}
+.register p a {
+  text-decoration: none;
+  color: #1f1f1f;
+  font-weight: 600;
+}
+.register p a:hover {
+  color: red;
+} */
+
+/* Form */
+
+/* .form {
+  margin: 15px 0 5px;
+  font-size: 0.9em;
+  color: #1f1f1f;
+  display: flex;
+  justify-content: space-between;
+} */
+/* 
+.form a {
+  color: #1f1f1f;
+  text-decoration: none;
+}
+
+.form a:hover {
+  color: #cecece;
+  text-decoration: none;
+}
+.logo img {
+  width: 400px;
+  height: 250px;
+}
+.icons {
+  color: #1f1f1f;
+  text-emphasis-color: #1f1f1f;
+} */
+/* .buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100px;
+} */
+/* p {
+  color: #1f1f1f;
+} */
+/* .forget label input {
+  margin-right: 3px;
+}
+.forget label a {
+  color: #1f1f1f;
+  text-decoration: none;
+}
+
+.forget a {
+  color: #1f1f1f;
+  text-decoration: none;
+}
+
+.forget a:hover {
+  text-decoration: none;
+}
+
+.forget label a:hover {
+  text-decoration: underline;
+} */

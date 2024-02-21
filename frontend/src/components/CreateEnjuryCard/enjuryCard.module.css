@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 2px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.colored-cell {
+  background-color: #e6f7ff;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  /* border: none; */
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+input {
+  width: 100%;
+}
+h2 {
+  color: black;
+  padding: 20px 20px;
+}
+.aaa {
+  margin-top: 10px;
+  top: 10px;
+}
