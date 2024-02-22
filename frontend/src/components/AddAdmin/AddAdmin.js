@@ -16,8 +16,9 @@ const AddAdmin1 = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const apiUrl = `${process.env.REACT_APP_BASE_URL}/registration`;
       try {
-        const response = await axios.get("http://localhost:4000/registration");
+        const response = await axios.get(apiUrl);
         setUsers(response.data.data);
         console.log(users);
       } catch (error) {
@@ -26,7 +27,7 @@ const AddAdmin1 = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
   // const data = user.id;
   // const handleAddAdmin = () => {
   //   console.log(data);

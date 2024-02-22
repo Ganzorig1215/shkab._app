@@ -22,7 +22,8 @@ function App() {
 
   //   // If there is no token, navigate to the login page
   // }, []);
-
+  const { REACT_APP_BASE_URL } = process.env;
+  console.log(process.env.REACT_APP_BASE_URL);
   return (
     <div className="App">
       <BrowserRouter>

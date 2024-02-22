@@ -363,7 +363,7 @@ app.get("/update", async (req, res) => {
   }
 });
 app.put("/update/:id", (req, res) => {
-  const { id } = req.params.id;
+  const id = req.params.id;
   const {
     usernumber,
     username,
@@ -418,32 +418,24 @@ app.put("/update/:id", (req, res) => {
 app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
 
-  try {
-    db.query(
-      "DELETE FROM userscard WHERE ID = ?",
-      [id],
-      (error, results, req, res) => {
-        if (error) {
-          console.log("Aldaa garlaa", error);
-          return res.status(500).json({
-            success: false,
-            message: "Устгаж чадсангүй",
-          });
-        }
-
-        return res.status(200).json({
-          success: true,
-          message: "Амжилттай устгалаа",
-        });
-      }
-    );
-  } catch (error) {
-    console.log("Aldaa garlaa", error);
-    return res.status(500).json({
-      success: false,
-      message: "Устгаж чадсангүй",
+  db.query("DELETE FROM userscard WHERE ID =?", [id], (error, results) => {
+    if (error) {
+      console.log("Aldaa garlaa", error);
+      return res.status(500).json({
+        success: false,
+        message: "Устгаж чадсангүй",
+      });
+    }
+  })
+    .then(() => {
+      return res.status(200).json({
+        success: true,
+        message: "Амжилттай устгалаа",
+      });
+    })
+    .catch((error) => {
+      throw error;
     });
-  }
 });
 
 // Бүртгэл

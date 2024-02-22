@@ -7,8 +7,9 @@ const MoreCard = () => {
   const [enjuryData, setEnjuryData] = useState([]);
 
   useEffect(() => {
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury?usernumber=${usernumber}`;
     axios
-      .get(`http://localhost:4000/enjury?usernumber=${usernumber}`)
+      .get(apiUrl)
       .then((res) => {
         const fetchedEnjuryData = res.data.data;
         console.log(fetchedEnjuryData);

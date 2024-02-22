@@ -66,7 +66,7 @@ const EnjuryCard = () => {
       ],
     };
     console.log(data);
-    const apiUrl = `http://localhost:4000/enjury/${usernumber}`;
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury/${usernumber}`;
     console.log(apiUrl);
     //Axios ашиглан сервертэй холбох үйлдэл
     axios

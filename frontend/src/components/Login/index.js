@@ -3,11 +3,10 @@ import css from "./style.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { BiSolidShow } from "react-icons/bi";
 import { notification } from "antd";
-import ResetPassword from "../ResetPassword";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [validationError, setValidationError] = useState("");
   const [message, setMessage] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -15,21 +14,6 @@ const Login = () => {
   const Navigate = useNavigate();
   const register = () => {
     Navigate("/Register");
-  };
-  const fetchProtectedData = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch("http://localhost:4000/protected-resource", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.error("Failed to fetch protected resource", error);
-    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,8 +25,9 @@ const Login = () => {
 
     setLoading(true);
     const login = async (email, password) => {
+      const apiUrl = `${process.env.REACT_APP_BASE_URL}/login`;
       try {
-        const response = await fetch("http://localhost:4000/login", {
+        const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -76,7 +61,7 @@ const Login = () => {
       } catch (error) {
         console.error("Login Failed", error);
         notification.error({
-          message: "Login Failed",
+          message: "Нэвтэрч чадсангүй",
         });
       } finally {
         setLoading(false);
@@ -87,6 +72,7 @@ const Login = () => {
   };
   const handleRememberMeChange = (e) => {
     setRememberMe(e.target.checked);
+    console.log(rememberMe);
   };
 
   return (
@@ -129,15 +115,14 @@ const Login = () => {
               {passwordVisibility ? "Hide" : "Show"}
             </div>
             <div className={css.forget}>
-              <label>
+              <label className={css.rememberMe}>
+                <p>Сануулах</p>
                 <input
                   type="checkbox"
-                  className="rememberMe"
                   name="rememberMe"
                   checked={rememberMe}
                   onChange={handleRememberMeChange}
                 />
-                <p>Намайг сана</p>
               </label>
               <label>
                 <Link to={`/ForgetPassword`}>

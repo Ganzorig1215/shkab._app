@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { CiSquareMore } from "react-icons/ci";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Table, Modal, Pagination, Button } from "antd";
+import { Table, Modal, Pagination, Button, notification } from "antd";
 import DeleteModal from "../Model/deleteModal";
 
 import css from "./style.module.css";
@@ -29,9 +29,10 @@ const Dashboard = (props) => {
     Navigate(`/more/${modalData.usernumber}`);
   };
   const fetchData = async () => {
+    // const apiUrl = `${process.env.REACT_APP_BASE_URL}/?page=${currentPage}`
     try {
       const response = await axios.get(
-        `http://localhost:4000/?page=${currentPage}`
+        `${process.env.REACT_APP_BASE_URL}/?page=${currentPage}`
       );
       setData(response.data);
       console.log(response.data);
@@ -70,10 +71,12 @@ const Dashboard = (props) => {
   };
 
   const onConfirmDelete = () => {
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/delete/${deleteUserId}`;
     axios
-      .delete(`http://localhost:4000/delete/${deleteUserId}`)
+      .delete(apiUrl)
       .then((res) => {
         console.log(res);
+        notification.success({ message: res.data.message });
         fetchData();
       })
       .catch((err) => console.log(err));
@@ -101,6 +104,7 @@ const Dashboard = (props) => {
       title: "№",
       dataIndex: "index",
       key: "index",
+      render: (_, record, index) => index + 1,
     },
     {
       title: "Хэрэглэгчийн дугаар",
@@ -260,14 +264,6 @@ const Dashboard = (props) => {
                   <h4>Шкаф №:</h4> {modalData.wardrobeNumber}
                 </p>
               </div>
-
-              {/* <Button
-                  type="primary"
-                  onClick={() => openModal1("wardrobeClass1")}
-                >
-                  Шкаф 1 анги
-                </Button>
-                {selectedCategory.wardrobeClass1 && ( */}
               <div>
                 <h3>Шкаф 1 анги</h3>
                 <p>
@@ -283,15 +279,6 @@ const Dashboard = (props) => {
                   {modalData?.wardrobeClass1?.[0]?.sectorNumber1}
                 </p>
               </div>
-              {/* )} */}
-
-              {/* <Button
-                  type="primary"
-                  onClick={() => openModal1("wardrobeClass2")}
-                >
-                  Шкаф 2 анги
-                </Button>
-                {selectedCategory.wardrobeClass2 && ( */}
               <div>
                 <h3>Шкаф 2 анги</h3>
                 <p>
@@ -307,7 +294,6 @@ const Dashboard = (props) => {
                   {modalData?.wardrobeClass2?.[0]?.sectorNumber2}
                 </p>
               </div>
-              {/* )} */}
             </div>
             <div className={css.modalTest1}>
               <div>

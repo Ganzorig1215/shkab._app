@@ -46,8 +46,10 @@ const Register = () => {
       confirmPassword: formData.confirmPassword,
       role: formData.role,
     };
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/register`;
     try {
-      const response = axios.post("http://localhost:4000/register", data);
+      const response = axios.post(apiUrl, data);
+      notification.success({ message: "Амжилттай бүртгэлээ" });
       Navigate("/Login");
     } catch (error) {
       console.log(error);

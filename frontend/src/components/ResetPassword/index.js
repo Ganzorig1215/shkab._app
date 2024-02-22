@@ -26,14 +26,11 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/reset-password`;
     try {
-      const response = await axios.post(
-        "http://localhost:4000/reset-password",
-        {
-          email,
-        }
-      );
+      const response = await axios.post(apiUrl, {
+        email,
+      });
 
       setMessage(response.data);
     } catch (error) {

@@ -17,6 +17,9 @@ const UpdateUserCard = () => {
     usernumber: "",
     username: "",
     address: "",
+    specialNote: "",
+    stationNumber: "",
+    longMetr: "",
     wardrobeNumber: "",
     cableNumber1: "",
     coupleNumber1: "",
@@ -54,8 +57,9 @@ const UpdateUserCard = () => {
   const [changeName, setChangeName] = useState("");
   const [createDate, setCreateDate] = useState("");
   useEffect(() => {
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/update?id=${id}`;
     axios
-      .get(`http://localhost:4000/update?id=${id}`)
+      .get(apiUrl)
       .then((res) => {
         const userData = res.data.data;
         console.log(userData);
@@ -160,8 +164,8 @@ const UpdateUserCard = () => {
       ],
     };
     console.log(data);
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/update/${id}`;
 
-    const apiUrl = `http://localhost:4000/update/${id}`;
     axios.put(apiUrl, data).then((res) => {
       if (res.data.updated) {
         notification.success({ message: res.data.message });

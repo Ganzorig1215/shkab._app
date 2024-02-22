@@ -11,9 +11,9 @@ const ForgetPassword = ({ token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/send-code`;
     try {
-      await axios.post("http://localhost:4000/send-code", { email });
+      await axios.post(apiUrl, { email });
       navigate(`/ResetPasswordForm/${token}/verify`);
     } catch (error) {
       console.error("Error sending code:", error);

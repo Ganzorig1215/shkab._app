@@ -4,7 +4,7 @@ import { Form, Input, Button } from "antd";
 import css from "./createCard.style.module.css";
 import { notification } from "antd";
 import axios from "axios";
-const defaultPort = 4000;
+// require("dotenv").config();
 const CreateCard = () => {
   const Navigate = useNavigate();
   const [users, setUsers] = useState({
@@ -113,11 +113,9 @@ const CreateCard = () => {
     };
     console.log(data);
     // Сервертэй холбох хаяг
-    const apiUrl = `http://localhost:${
-      process.env.PORT || defaultPort
-    }/users/create`;
-
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/users/create`;
     console.log(apiUrl);
+
     //Axios ашиглан сервертэй холбох үйлдэл
     axios
       .post(apiUrl, data)
