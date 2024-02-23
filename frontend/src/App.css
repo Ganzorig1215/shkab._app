@@ -15,6 +15,7 @@
   background-color: #194569 !important;
 }
 .ant-modal-content {
+  overflow-y: scroll !important;
   /* width: 1000px;
   height: 600px !important;
   display: flex;

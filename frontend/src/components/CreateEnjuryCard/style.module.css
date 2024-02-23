@@ -23,6 +23,7 @@
   background-color: #fafafa;
   border-radius: 5px;
   margin-top: 25px;
+  overflow-y: scroll;
 }
 .container footer {
   width: 100%;

@@ -31,14 +31,14 @@ const Navbar = () => {
     <header className={css.header}>
       <div className={css.logoutContainer}>
         <Button className={css.test} onClick={showLogoutConfirmationDiv}>
-          {user && user.name}
+          {/* {user && user.name} */} <AiOutlinePoweroff />
         </Button>
 
-        {showLogoutConfirmation && (
+        {/* {showLogoutConfirmation && (
           <Button className={css.test1} onClick={handleLogout}>
-            <AiOutlinePoweroff />
+
           </Button>
-        )}
+        )} */}
       </div>
     </header>
   );

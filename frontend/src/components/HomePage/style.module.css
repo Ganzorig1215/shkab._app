@@ -20,6 +20,7 @@
   height: 80vh;
   margin-top: 20px;
   margin-left: 50px;
+  overflow-y: scroll;
 }
 .container footer {
   width: 100%;
