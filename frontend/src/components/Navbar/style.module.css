@@ -18,9 +18,21 @@
   margin-left: 40px;
 }
 .test {
-  top: 10px;
+  top: 35px;
   width: 100px;
   right: 80px;
+}
+.test1 {
+  top: 15px;
+  width: 100px;
+  right: 80px;
+}
+.logoutContainer {
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  height: 100px;
 }
 
 @media screen and (max-width: 768px) {

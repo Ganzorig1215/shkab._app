@@ -7,10 +7,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Table, Modal, Pagination, Button, notification } from "antd";
 import DeleteModal from "../Model/deleteModal";
-
 import css from "./style.module.css";
-
-const Dashboard = (props) => {
+const Dashboard = () => {
   const [deleteShow, setDeleteShow] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,24 +16,16 @@ const Dashboard = (props) => {
   const [searchInput, setSearchInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
-  // const [modalData1, setModalData1] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState({
-    wardrobeClass1: false,
-    wardrobeClass2: false,
-  });
-
   const Navigate = useNavigate();
   const enjuryData = (record) => {
     Navigate(`/more/${modalData.usernumber}`);
   };
   const fetchData = async () => {
-    // const apiUrl = `${process.env.REACT_APP_BASE_URL}/?page=${currentPage}`
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/?page=${currentPage}`
       );
       setData(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -44,19 +34,13 @@ const Dashboard = (props) => {
     if (modalData && modalData.usernumber) {
     }
   }, [modalData]);
-
-  console.log(data);
-
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
-
+  }, [currentPage, searchInput]);
   const openModal = (data) => {
     setModalData(data);
-
     setModalVisible(true);
   };
-
   const onChange = (page) => {
     setCurrentPage(page);
   };
@@ -64,41 +48,26 @@ const Dashboard = (props) => {
     setDeleteUserId(userId);
     setDeleteShow(true);
   };
-
   const onCancelDelete = () => {
     setDeleteUserId(null);
     setDeleteShow(false);
   };
-
   const onConfirmDelete = () => {
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/delete/${deleteUserId}`;
     axios
       .delete(apiUrl)
       .then((res) => {
-        console.log(res);
         notification.success({ message: res.data.message });
         fetchData();
       })
       .catch((err) => console.log(err));
-
     setDeleteUserId(null);
     setDeleteShow(false);
   };
-
   const { id } = useParams();
-  const [userData, setUserData] = useState([]);
-
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value.toLowerCase());
   };
-
-  const filteredUserData = userData.filter(
-    (user) =>
-      data.users.toLowerCase().includes(searchInput) ||
-      user.username.toLowerCase().includes(searchInput) ||
-      user.address.toLowerCase().includes(searchInput)
-  );
-
   const columns = [
     {
       title: "№",
@@ -181,7 +150,6 @@ const Dashboard = (props) => {
       ),
     },
   ];
-
   return (
     <div className={css.dashboardContainer}>
       <div className={css.dashboard}>
@@ -203,11 +171,21 @@ const Dashboard = (props) => {
         <Table
           style={{ backgroundColor: "transparent", color: "red" }}
           columns={columns}
-          // dataSource={data.users.map((user, index) => ({
-          //   ...user,
-          //   key: user.usernumber || index,
-          // }))}
-          dataSource={data.users}
+          dataSource={(data.users || [])
+            .map((user, index) => ({
+              ...user,
+              key: user.usernumber || index,
+            }))
+            .filter(
+              (user) =>
+                user.username.toLowerCase().includes(searchInput) ||
+                user.usernumber.toLowerCase().includes(searchInput) ||
+                user.address.toLowerCase().includes(searchInput) ||
+                user.specialNote.toLowerCase().includes(searchInput) ||
+                user.stationNumber.toLowerCase().includes(searchInput) ||
+                user.longMetr.toLowerCase().includes(searchInput) ||
+                user.wardrobeNumber.toLowerCase().includes(searchInput)
+            )}
           pagination={false}
         />
         <Pagination
@@ -220,7 +198,7 @@ const Dashboard = (props) => {
         )}
         <Modal
           title="Дэлгэрэнгүй мэдээлэл"
-          visible={modalVisible}
+          open={modalVisible}
           onCancel={() => setModalVisible(false)}
           footer={null}
           centered

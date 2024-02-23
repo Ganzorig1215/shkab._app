@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 import { Button, Menu } from "antd";
 import { Radio } from "antd";
-
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -20,16 +19,13 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
-
 const SideBar = ({ userRole }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [role, setRole] = useState();
   const navigate = useNavigate();
-
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
-
   const handleMenuClick = (key) => {
     if (key === "1") {
       navigate("/");
@@ -37,7 +33,6 @@ const SideBar = ({ userRole }) => {
       navigate("/AddAdmin");
     }
   };
-
   useEffect(() => {
     const userRole = localStorage.getItem("role");
     setRole(userRole);
@@ -45,18 +40,16 @@ const SideBar = ({ userRole }) => {
   const items = [
     getItem("Нүүр хуудас", "1", <HomeOutlined />),
     role && role === "admin" && getItem("Админ нэмэх", "2", <UserOutlined />),
-
-    getItem("Тохиргоо", "sub1", <SettingOutlined />, [
-      getItem(
-        <Radio.Group name="radiogroup" defaultValue={1}>
-          <Radio value={1}> 🔆</Radio>
-          <Radio value={2}>🌙</Radio>
-        </Radio.Group>,
-        "5"
-      ),
+    getItem("Тохиргоо", "3", <SettingOutlined />, [
+      // getItem(
+      //   <Radio.Group name="radiogroup" defaultValue={1}>
+      //     <Radio value={1}> 🔆</Radio>
+      //     <Radio value={2}>🌙</Radio>
+      //   </Radio.Group>,
+      //   "3"
+      // ),
     ]),
   ];
-
   return (
     <div
       style={{
@@ -84,5 +77,4 @@ const SideBar = ({ userRole }) => {
     </div>
   );
 };
-
 export default SideBar;

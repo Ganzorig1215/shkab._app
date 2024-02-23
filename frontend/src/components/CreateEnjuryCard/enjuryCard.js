@@ -5,9 +5,6 @@ import { useParams } from "react-router-dom";
 import { DatePicker, Space, Button, notification } from "antd";
 import axios from "axios";
 import dayjs from "dayjs";
-const defaultPort = 4000;
-
-// import moment from "moment";
 const { RangePicker } = DatePicker;
 const EnjuryCard = () => {
   const [enjury, setEnjury] = useState({
@@ -65,10 +62,8 @@ const EnjuryCard = () => {
         },
       ],
     };
-    console.log(data);
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury/${usernumber}`;
     console.log(apiUrl);
-    //Axios ашиглан сервертэй холбох үйлдэл
     axios
       .post(apiUrl, data)
       .then((res) => {

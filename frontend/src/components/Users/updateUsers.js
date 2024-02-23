@@ -4,11 +4,10 @@ import Navbar from "../Navbar";
 import SideBar from "../SideBar";
 import UpdateUserCard from "./users";
 import { useNavigate } from "react-router-dom";
-import { Notification, notification } from "antd";
+import { notification } from "antd";
 const UpdateUser = (props) => {
   const [token, setToken] = useState();
   const navigate = useNavigate();
-
   useEffect(() => {
     const token1 = localStorage.getItem("token");
     setToken(token1);
@@ -22,7 +21,6 @@ const UpdateUser = (props) => {
       <div className={css.SideBar}>
         <SideBar />
       </div>
-
       <div className={css.container}>
         <header>
           <Navbar />
@@ -35,5 +33,4 @@ const UpdateUser = (props) => {
     </div>
   );
 };
-
 export default UpdateUser;

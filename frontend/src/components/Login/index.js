@@ -39,12 +39,13 @@ const Login = () => {
           const data = await response.json();
           const { token } = data;
           const { role } = data;
-          console.log(role);
-
+          const { name } = data;
           localStorage.setItem("token", token);
           localStorage.setItem("role", role);
+          localStorage.setItem("name", name);
           console.log(localStorage.getItem("token"));
           console.log(localStorage.getItem("role"));
+          console.log(localStorage.getItem("name"));
           notification.success({
             message: "Амжилттай нэвтэрлээ.",
           });
@@ -72,7 +73,6 @@ const Login = () => {
   };
   const handleRememberMeChange = (e) => {
     setRememberMe(e.target.checked);
-    console.log(rememberMe);
   };
 
   return (

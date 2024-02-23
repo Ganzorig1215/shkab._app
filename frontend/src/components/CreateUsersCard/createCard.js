@@ -46,7 +46,6 @@ const CreateCard = () => {
 
   // Формыг submit хийх үйлдэл
   const save = (e) => {
-    console.log("console");
     e.preventDefault();
     // HTTP POST хүсэлт илгээх өгөгдлийг бэлдэх
     if (!users.usernumber || !users.username || !users.address) {
@@ -111,10 +110,8 @@ const CreateCard = () => {
         },
       ],
     };
-    console.log(data);
     // Сервертэй холбох хаяг
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/users/create`;
-    console.log(apiUrl);
 
     //Axios ашиглан сервертэй холбох үйлдэл
     axios

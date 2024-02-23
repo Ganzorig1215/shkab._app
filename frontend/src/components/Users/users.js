@@ -43,26 +43,12 @@ const UpdateUserCard = () => {
     nerSolisonTailbar: "",
     nerSolisonOgnoo: "",
   });
-  console.log(user);
-  const [usernumber, setUsernumber] = useState("");
-  const [username, setUsername] = useState("");
-  const [address, setAddress] = useState("");
-  const [wardrobeNumber, setWardrobeNumber] = useState("");
-  const [wardrobeClass1, setWardrobeClass1] = useState("");
-  const [wardrobeClass2, setWardrobeClass2] = useState("");
-  const [install, setInstall] = useState("");
-  const [transfer, setTransfer] = useState("");
-  const [collect, setCollect] = useState("");
-  const [changeNumber, setChangeNumber] = useState("");
-  const [changeName, setChangeName] = useState("");
-  const [createDate, setCreateDate] = useState("");
   useEffect(() => {
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/update?id=${id}`;
     axios
       .get(apiUrl)
       .then((res) => {
         const userData = res.data.data;
-        console.log(userData);
         //state-d data haruulna
         setUser({
           usernumber: userData[0].usernumber,
@@ -163,7 +149,6 @@ const UpdateUserCard = () => {
         },
       ],
     };
-    console.log(data);
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/update/${id}`;
 
     axios.put(apiUrl, data).then((res) => {

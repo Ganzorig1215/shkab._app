@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import css from "./style.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { BiSolidShow } from "react-icons/bi";
-import { notification } from "antd";
-
 const ResetPasswordForm = () => {
   const [receivedCode, setReceivedCode] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,7 +14,6 @@ const ResetPasswordForm = () => {
     confirmPassword: "",
     role: "user",
   });
-
   const handleInputChange = (e) => {
     e.persist();
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +26,6 @@ const ResetPasswordForm = () => {
       const response = await axios.post(apiUrl, {
         email,
       });
-
       setMessage(response.data);
     } catch (error) {
       console.error("Error sending reset email:", error);
@@ -40,7 +34,6 @@ const ResetPasswordForm = () => {
       setLoading(false);
     }
   };
-
   return (
     <section className={css.loginSection}>
       <div className={css.formBox}>
@@ -49,7 +42,6 @@ const ResetPasswordForm = () => {
             <h2>
               <strong>Нууц үг сэргээх</strong>
             </h2>
-
             <br />
             <div className={css.inputBox}>
               <input
@@ -91,7 +83,6 @@ const ResetPasswordForm = () => {
               />
               {passwordVisibility2 ? "Hide" : "Show"}
             </div>
-
             <div className={css.buttonContainer}>
               <button className={css.button} type="submit" disabled={loading}>
                 <p>{loading ? "Sending..." : "нууц  үг сэргээх"}</p>

@@ -12,7 +12,6 @@ const MoreCard = () => {
       .get(apiUrl)
       .then((res) => {
         const fetchedEnjuryData = res.data.data;
-        console.log(fetchedEnjuryData);
         setEnjuryData(fetchedEnjuryData);
       })
       .catch((err) => console.log(err));

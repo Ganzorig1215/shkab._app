@@ -20,14 +20,13 @@ const AddAdmin1 = () => {
       try {
         const response = await axios.get(apiUrl);
         setUsers(response.data.data);
-        console.log(users);
       } catch (error) {
         console.error("Failed to fetch users", error);
       }
     };
 
     fetchUsers();
-  }, [fetchUsers]);
+  }, []);
   // const data = user.id;
   // const handleAddAdmin = () => {
   //   console.log(data);
@@ -37,6 +36,7 @@ const AddAdmin1 = () => {
   //     .then((res) => {
   //       notification.success({ message: res.data.message });
   //       Navigate("/");
+
   //     })
   //     .catch((error) => {});
   // };

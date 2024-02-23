@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const usersRoutes = require("./routes/users");
 const app = express();
 const path = require("path");
 const db = require("./controller/dbconnect");
@@ -12,14 +11,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { info } = require("console");
-
 dotenv.config({ path: "../config.env" });
-
-// const corsOptions = {
-//   origin: "http://localhost:4000", // Replace with your React app's URL
-//   optionsSuccessStatus: 200,
-// };
-
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
@@ -30,7 +22,6 @@ const transporter = nodemailer.createTransport({
     pass: "99972613Aa",
   },
 });
-
 app.post("/send-code", (req, res) => {
   const { email } = req.body;
   const code = Math.floor(100000 + Math.random() * 900000).toString();
@@ -144,15 +135,6 @@ app.put("/addAdmin/:id", (req, res) => {
       message: "Шинэчилж чадсангүй",
     });
   }
-  // const user = user.find((u) => u.id === id);
-  // console.log(user);
-
-  // if (user) {
-  //   user.role = "admin";
-  //   res.json({ message: "Admin added successfully" });
-  // } else {
-  //   res.status(404).json({ error: "User not found" });
-  // }
 });
 
 app.post("/remove-admin", (req, res) => {
@@ -179,7 +161,7 @@ app.post("/login", async (req, res) => {
     if (!userData || userData.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "User not found",
+        message: "Хэрэглэгч олдсонгүй",
       });
     }
 
@@ -190,14 +172,17 @@ app.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({
         success: false,
-        message: "Incorrect password",
+        message: "Нууц үг таарахгүй байна!!!",
       });
     }
 
     const userWithoutPassword = { ...userData[0] };
     const { role } = userData[0];
+    const { name } = userData[0];
+    console.log(name);
+    console.log(role);
     delete userWithoutPassword.password;
-
+    console.log(userData);
     const token = jwt.sign(
       { userId: userWithoutPassword.id, email: userWithoutPassword.email },
       "your_secret_key",
@@ -210,12 +195,13 @@ app.post("/login", async (req, res) => {
       success: true,
       token: token,
       role: role,
+      name: name,
     });
   } catch (error) {
-    console.error("Error occurred in the login endpoint:", error);
+    console.error("Нэвтрэх үед алдаа гарлаа:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: "Дотоод серверийн алдаа",
     });
   }
 });
@@ -237,7 +223,7 @@ app.post("/enjury/:usernumber", (req, res) => {
       send: req.body,
     });
   } catch (error) {
-    console.error("aldaa garlaa:", error);
+    console.error("Алдаа гарлаа:", error);
     return res.status(500).json({
       success: false,
       message: "Дотоод серверийн алдаа",
@@ -289,7 +275,7 @@ app.post("/users/create", (req, res) => {
       send: req.body,
     });
   } catch (error) {
-    console.error("aldaa garlaa:", error);
+    console.error("Алдаа гарлаа:", error);
     return res.status(500).json({
       success: false,
       message: "Дотоод серверийн алдаа",
@@ -415,8 +401,9 @@ app.put("/update/:id", (req, res) => {
   }
 });
 
-app.delete("/delete/:id", (req, res) => {
-  const id = req.params.id;
+app.delete("/delete/:deleteUserId", (req, res) => {
+  const id = req.params.deleteUserId;
+  console.log(id);
 
   db.query("DELETE FROM userscard WHERE ID =?", [id], (error, results) => {
     if (error) {

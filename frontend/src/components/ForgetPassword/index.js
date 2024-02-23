@@ -20,7 +20,6 @@ const ForgetPassword = ({ token }) => {
     } finally {
       setLoading(false);
     }
-    console.log(email);
   };
 
   return (
