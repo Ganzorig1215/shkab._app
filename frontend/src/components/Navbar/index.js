@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <header className={css.header}>
       <div className={css.logoutContainer}>
-        <Button className={css.test} onClick={showLogoutConfirmationDiv}>
+        <Button className={css.test} onClick={handleLogout}>
           {/* {user && user.name} */} <AiOutlinePoweroff />
         </Button>
 
