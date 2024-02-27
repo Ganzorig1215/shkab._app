@@ -1,3 +1,10 @@
+.bigContainer {
+  width: 96%;
+  height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -7,7 +14,7 @@ th,
 td {
   border: 2px solid #ddd;
   padding: 10px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 th {
@@ -21,7 +28,7 @@ th {
 input {
   width: 100%;
   box-sizing: border-box;
-  /* border: none; */
+
   border-top: none;
   border-left: none;
   border-right: none;
@@ -37,4 +44,8 @@ h2 {
 .aaa {
   margin-top: 10px;
   top: 10px;
+}
+.h1 {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }

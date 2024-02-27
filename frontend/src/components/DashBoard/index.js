@@ -5,7 +5,18 @@ import { FaPlus } from "react-icons/fa";
 import { CiSquareMore } from "react-icons/ci";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Table, Modal, Pagination, Button, notification } from "antd";
+import { AudioOutlined } from "@ant-design/icons";
+
+import {
+  Table,
+  Modal,
+  Pagination,
+  Button,
+  notification,
+  Tooltip,
+  Input,
+  Space,
+} from "antd";
 import DeleteModal from "../Model/deleteModal";
 import css from "./style.module.css";
 const Dashboard = () => {
@@ -16,7 +27,9 @@ const Dashboard = () => {
   const [searchInput, setSearchInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [role, setRole] = useState();
   const Navigate = useNavigate();
+  const { Search } = Input;
   const enjuryData = (record) => {
     Navigate(`/more/${modalData.usernumber}`);
   };
@@ -31,6 +44,8 @@ const Dashboard = () => {
     }
   };
   useEffect(() => {
+    const userRole = localStorage.getItem("role");
+    setRole(userRole);
     if (modalData && modalData.usernumber) {
     }
   }, [modalData]);
@@ -124,10 +139,11 @@ const Dashboard = () => {
         </Link>
       ),
     },
-    {
+    role === "admin" && {
       title: "Устгах",
       dataIndex: "delete",
       key: "delete",
+      visible: false,
       render: (_, record) => (
         <button
           className={css.iconButton}
@@ -137,6 +153,7 @@ const Dashboard = () => {
         </button>
       ),
     },
+
     {
       title: "Дэлгэрэнгүй",
       dataIndex: "moreDetails",
@@ -149,24 +166,38 @@ const Dashboard = () => {
         // </Link>
       ),
     },
-  ];
+  ].filter(Boolean);
   return (
-    <div className={css.dashboardContainer}>
+    <div className={css.bigContainer}>
       <div className={css.dashboard}>
+        <div>
+          <h1 className={css.h1}>NGN-Телефон Хэрэглэгчдийн картын лист</h1>
+        </div>
         <div className={css.buttonContainer}>
-          <input
+          <Search
+            placeholder="Хайх"
+            onSearch={searchInput}
+            defaultValue={searchInput}
+            style={{ width: 700 }}
+            className={css.searchInput}
+            onChange={handleSearchInputChange}
+          />
+          {/* <input
             type="search"
             placeholder="Search"
             className={css.searchInput}
             value={searchInput}
             onChange={handleSearchInputChange}
-          />
-          <button
-            onClick={() => Navigate("/createUsersCard")}
-            className={css.iconButtons}
-          >
-            <FaPlus />
-          </button>
+          /> */}
+          <Tooltip title="Карт үүсгэх">
+            <button
+              onClick={() => Navigate("/createUsersCard")}
+              className={css.iconButtons}
+            >
+              {/* <FaPlus /> */}
+              Карт үүсгэх
+            </button>
+          </Tooltip>
         </div>
         <Table
           style={{ backgroundColor: "transparent", color: "red" }}
@@ -187,6 +218,7 @@ const Dashboard = () => {
                 user.wardrobeNumber.toLowerCase().includes(searchInput)
             )}
           pagination={false}
+          scroll={{ y: 500 }}
         />
         <Pagination
           defaultCurrent={data?.currentPage}
@@ -202,139 +234,247 @@ const Dashboard = () => {
           onCancel={() => setModalVisible(false)}
           footer={null}
           centered
-          width={1000}
+          width={800}
+          overflow-y={scroll}
         >
-          <div className={css.modalTest}>
-            <div className={css.modalTest1}>
-              <div>
-                <p>
-                  <h4>Хэрэглэгчийн дугаар:</h4> {modalData.usernumber}
-                </p>
-                <p>
-                  <h4>Хэрэглэгчийн нэр:</h4> {modalData.username}
-                </p>
-                <p>
-                  <h4>Хаяг:</h4> {modalData.address}
-                </p>
-                <p>
-                  <h4>Тусгай тэмдэглэл:</h4> {modalData.specialNote}
-                </p>
-                <p>
-                  <h4>Станц талын дугаар:</h4> {modalData.stationNumber}
-                </p>
-                <p>
-                  <h4>Урт нь метрээр:</h4> {modalData.longMetr}
-                </p>
-                <p>
-                  <h4>Үүсгэсэн огноо:</h4>
-                  {modalData.createDate &&
-                    new Date(modalData.createDate).toLocaleString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                      // timeZoneName: "short",
-                    })}
-                </p>
-                <p>
-                  <h4>Шкаф №:</h4> {modalData.wardrobeNumber}
-                </p>
-              </div>
-              <div>
-                <h3>Шкаф 1 анги</h3>
-                <p>
-                  <h4>Гол кабелийн дугаар:</h4>
-                  {modalData?.wardrobeClass1?.[0]?.cableNumber1}
-                </p>
-                <p>
-                  <h4>Салбар кабелийн дугаар:</h4>
-                  {modalData?.wardrobeClass1?.[0]?.coupleNumber1}
-                </p>
-                <p>
-                  <h4>Хосын дугаар:</h4>
-                  {modalData?.wardrobeClass1?.[0]?.sectorNumber1}
-                </p>
-              </div>
-              <div>
-                <h3>Шкаф 2 анги</h3>
-                <p>
-                  <h4>Гол кабелийн дугаар:</h4>
-                  {modalData?.wardrobeClass2?.[0]?.cableNumber2}
-                </p>
-                <p>
-                  <h4>Салбар кабелийн дугаар:</h4>
-                  {modalData?.wardrobeClass2?.[0]?.coupleNumber2}
-                </p>
-                <p>
-                  <h4>Хосын дугаар:</h4>
-                  {modalData?.wardrobeClass2?.[0]?.sectorNumber2}
-                </p>
-              </div>
+          <div>
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Хэрэглэгчийн дугаар</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.usernumber}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Хэрэглэгчийн нэр</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.username}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Хаяг</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.address}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Тусгай тэмдэглэл</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.specialNote}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div className={css.modalTest1}>
-              <div>
-                <h3>Тавьсан</h3>
-                <p>
-                  <h4>Он сар өдөр: </h4>
-                  {modalData?.install?.[0]?.tavisanOgnoo}
-                </p>
-                <p>
-                  <h4>Тайлбар: </h4>
-                  {modalData?.install?.[0]?.tavisanTailbar}
-                </p>
-                <p>
-                  <h4>Хүний нэр: </h4>
-                  {modalData?.install?.[0]?.tavisanHuniiNer}
-                </p>
-              </div>
-              <div>
-                <h3>Шилжүүлсэн</h3>
-                <p>
-                  <h4>Он сар өдөр:</h4>
-                  {modalData?.transfer?.[0]?.shiljuulsenOgnoo}
-                </p>
-                <p>
-                  <h4>Тайлбар:</h4>
-                  {modalData?.transfer?.[0]?.shiljuulsenTailbar}
-                </p>
-                <p>
-                  <h4>Хүний нэр:</h4>
-                  {modalData?.transfer?.[0]?.shiljuulsenHuniiNer}
-                </p>
-              </div>
-              <div>
-                <h3>Хураасан</h3>
-                <p>
-                  <h4>Он сар өдөр:</h4> {modalData?.collect?.[0]?.huraasanOgnoo}
-                </p>
-                <p>
-                  <h4>Тайлбар: </h4>
-                  {modalData?.collect?.[0]?.huraasanTailbar}
-                </p>
-                <p>
-                  <h4>Хүний нэр:</h4>
-                  {modalData?.collect?.[0]?.huraasanHuniiNer}
-                </p>
-              </div>
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Станц талын дугаар</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.stationNumber}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Урт нь метрээр</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.longMetr}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Үүсгэсэн огноо</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {modalData.createDate &&
+                        new Date(modalData.createDate).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                          // timeZoneName: "short",
+                        })}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.jjj}>Шкаф №</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{modalData.wardrobeNumber}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div className={css.modalTest1}>
-              <div>
-                <h3>Номер сольсон</h3>
-                <p>
-                  <h4>Он сар өдөр:</h4>
-                  {modalData?.changeNumber?.[0]?.nomerSolisonOgnoo}
-                </p>
-                <p>
-                  <h4>Тайлбар:</h4>
-                  {modalData?.changeNumber?.[0]?.nomerSolisonTailbar}
-                </p>
-                <p>
-                  <h4>Хүний нэр:</h4>
-                  {modalData?.changeNumber?.[0]?.nomerSolisonHuniiNer}
-                </p>
-              </div>
+
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.kkk} colSpan="3">
+                      Шкаф 1 анги
+                    </td>
+                    <td className={css.kkk} colSpan="3">
+                      Шкаф 2 анги
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={css.jjj}>Гол кабелийн дугаар</td>
+                    <td className={css.jjj}>Хосын дугаар</td>
+                    <td className={css.jjj}>Салбар кабелийн дугаар</td>
+                    <td className={css.jjj}>Гол кабелийн дугаар</td>
+                    <td className={css.jjj}>Хосын дугаар</td>
+                    <td className={css.jjj}>Салбар кабелийн дугаар</td>
+                  </tr>
+                  <tr>
+                    <td>{modalData?.wardrobeClass1?.[0]?.cableNumber1}</td>
+                    <td> {modalData?.wardrobeClass1?.[0]?.coupleNumber1}</td>
+                    <td> {modalData?.wardrobeClass1?.[0]?.sectorNumber1}</td>
+                    <td>{modalData?.wardrobeClass2?.[0]?.cableNumber2}</td>
+                    <td> {modalData?.wardrobeClass2?.[0]?.coupleNumber2}</td>
+                    <td> {modalData?.wardrobeClass2?.[0]?.sectorNumber2}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.kkk} colSpan="3">
+                      Тавьсан
+                    </td>
+                    <td className={css.kkk} colSpan="3">
+                      Шилжүүлсэн
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={css.jjj}>Он сар өдөр</td>
+                    <td className={css.jjj}>Хүний нэр</td>
+                    <td className={css.jjj}>Тайлбар</td>
+                    <td className={css.jjj}>Он сар өдөр</td>
+                    <td className={css.jjj}>Хүний нэр</td>
+                    <td className={css.jjj}>Тайлбар</td>
+                  </tr>
+                  <tr>
+                    <td> {modalData?.install?.[0]?.tavisanOgnoo}</td>
+                    <td> {modalData?.install?.[0]?.tavisanHuniiNer}</td>
+                    <td> {modalData?.install?.[0]?.tavisanTailbar}</td>
+                    <td> {modalData?.transfer?.[0]?.shiljuulsenOgnoo}</td>
+                    <td>{modalData?.transfer?.[0]?.shiljuulsenHuniiNer}</td>
+                    <td>{modalData?.transfer?.[0]?.shiljuulsenTailbar}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.kkk} colSpan="3">
+                      Хураасан
+                    </td>
+                    <td className={css.kkk} colSpan="3">
+                      Номер сольсон
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={css.jjj}>Он сар өдөр</td>
+                    <td className={css.jjj}>Хүний нэр</td>
+                    <td className={css.jjj}>Тайлбар</td>
+                    <td className={css.jjj}>Он сар өдөр</td>
+                    <td className={css.jjj}>Хүний нэр</td>
+                    <td className={css.jjj}>Тайлбар</td>
+                  </tr>
+                  <tr>
+                    <td>{modalData?.collect?.[0]?.huraasanOgnoo}</td>
+                    <td>{modalData?.collect?.[0]?.huraasanHuniiNer}</td>
+                    <td> {modalData?.collect?.[0]?.huraasanTailbar}</td>
+                    <td> {modalData?.changeNumber?.[0]?.nomerSolisonOgnoo}</td>
+                    <td>
+                      {modalData?.changeNumber?.[0]?.nomerSolisonHuniiNer}
+                    </td>
+                    <td>
+                      {" "}
+                      {modalData?.changeNumber?.[0]?.nomerSolisonTailbar}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className={css.hhh}>
+              <table>
+                <thead>
+                  <tr>
+                    <td className={css.kkk} colSpan="3">
+                      Нэр сольсон
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={css.jjj}>Он сар өдөр</td>
+                    <td className={css.jjj}>Хүний нэр</td>
+                    <td className={css.jjj}>Тайлбар</td>
+                  </tr>
+                  <tr>
+                    <td> {modalData?.changeName?.[0]?.nerSolisonOgnoo}</td>
+                    <td>{modalData?.changeName?.[0]?.nerSolisonHuniiNer}</td>
+                    <td> {modalData?.changeName?.[0]?.nerSolisonTailbar}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className={css.bbb}>
               <Button
                 type="primary"
                 className={css.enjuryButton}
@@ -342,21 +482,6 @@ const Dashboard = () => {
               >
                 Гэмтлийн мэдээлэл
               </Button>
-              <div>
-                <h3>Нэр сольсон</h3>
-                <p>
-                  <h4>Он сар өдөр:</h4>
-                  {modalData?.changeName?.[0]?.nerSolisonOgnoo}
-                </p>
-                <p>
-                  <h4>Тайлбар:</h4>
-                  {modalData?.changeName?.[0]?.nerSolisonTailbar}
-                </p>
-                <p>
-                  <h4>Хүний нэр:</h4>
-                  {modalData?.changeName?.[0]?.nerSolisonHuniiNer}
-                </p>
-              </div>
             </div>
           </div>
         </Modal>

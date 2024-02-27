@@ -7,16 +7,17 @@ const AddAdmin1 = () => {
   const { id } = useParams();
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({
+    name: "",
     role: "",
   });
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const Navigate = useNavigate();
-
   useEffect(() => {
     const fetchUsers = async () => {
       const apiUrl = `${process.env.REACT_APP_BASE_URL}/registration`;
+      console.log(apiUrl);
       try {
         const response = await axios.get(apiUrl);
         setUsers(response.data.data);
@@ -27,20 +28,28 @@ const AddAdmin1 = () => {
 
     fetchUsers();
   }, []);
-  // const data = user.id;
-  // const handleAddAdmin = () => {
-  //   console.log(data);
-  //   const apiUrl = `http://localhost:4000/addAdmin/${id}`;
-  //   axios
-  //     .put(apiUrl, data)
-  //     .then((res) => {
-  //       notification.success({ message: res.data.message });
-  //       Navigate("/");
 
-  //     })
-  //     .catch((error) => {});
-  // };
+  // const data = users[0].id;
+  // console.log(data);
+  const handleAddAdmin = () => {
+    const userId = users[0].id;
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/addAdmin/${userId}`;
 
+    axios
+      .put(apiUrl)
+      .then((res) => {
+        notification.success({ message: res.data.message });
+        setIsModalOpen(false);
+        setUsers((prevUsers) =>
+          prevUsers.map((u) =>
+            u.id === selectedUser.id ? { ...u, role: "admin" } : u
+          )
+        );
+      })
+      .catch((error) => {
+        console.error("Failed to add admin", error);
+      });
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -59,10 +68,19 @@ const AddAdmin1 = () => {
       <h2>Бүртүүлсэн хэрэглэгчдийн лист</h2>
       <List
         dataSource={paginatedUsers}
-        renderItem={(user, record) => (
+        renderItem={(user) => (
           <List.Item key={user.id}>
             <List.Item.Meta title={user.name} description={user.email} />
-            <Button type="primary" onClick={() => showModal(user)}>
+            <Button
+              type="primary"
+              onClick={() => {
+                setUser({
+                  role: user.role,
+                  name: user.name,
+                });
+                showModal(user);
+              }}
+            >
               Add Admin
             </Button>
             <Button type="danger" onClick={() => showRemoveModal(user)}>
@@ -74,12 +92,12 @@ const AddAdmin1 = () => {
       <>
         <Modal
           title="Add Admin"
-          open={isModalOpen}
-          onOk={handleOk}
+          visible={isModalOpen}
+          onOk={handleAddAdmin} // Change to handleAddAdmin
           onCancel={handleCancel}
         >
-          <p>{`Хэрэглэгч: ${user.name}`}</p>
-          <p>{`Одоогийн эрх: ${user.role}`}</p>
+          <p>{`Хэрэглэгч: ${user?.name}`}</p>
+          <p>{`Одоогийн эрх: ${user?.role}`}</p>
           <p>Та админ эрх нэмэхийг хүсэж байна уу?</p>
         </Modal>
       </>

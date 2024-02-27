@@ -1,35 +1,35 @@
 .buttonContainer {
   display: flex;
+  flex-direction: row;
   align-items: center;
-
-  text-align: center;
+  justify-content: space-between;
 }
-
+.h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.bigContainer {
+  width: 95%;
+  height: 95%;
+  display: flex;
+}
 .searchInput {
-  padding: 8px;
-  border: 1px solid #ccc;
   border-radius: 4px;
-
-  width: 80%;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  height: 30px;
+  margin-bottom: 25px;
 }
 
 .iconButtons {
   border-radius: 4px;
-  margin-top: 20px;
   margin-left: 200px;
-  color: #fff;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
   border: none;
   padding: 8px;
   cursor: pointer;
   margin-right: 5px;
-}
-.iconButton {
-  color: #fff;
-  border: none;
-  /* padding: 8px; */
-  border-radius: 4px;
-  cursor: pointer;
-  /* margin-right: 5px; */
+  background-color: #fff;
+  width: 100px;
 }
 .pagination {
   margin-top: 20px;
@@ -92,6 +92,7 @@ button {
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
+  display: inline;
 }
 
 .iconButton:hover {
@@ -101,5 +102,25 @@ h4 {
   display: inline;
 }
 .enjuryButton {
-  top: 70px;
+  top: 10px;
+}
+.createCard {
+  bottom: 20px;
+}
+.hhh {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.bbb {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.jjj {
+  background-color: #f3f4f7;
+}
+.kkk {
+  background-color: #e8e9eb;
 }

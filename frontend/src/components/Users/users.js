@@ -162,7 +162,7 @@ const UpdateUserCard = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className={css.bigContainer}>
       <h2>NGN-Телефон Хэрэглэгчийн карт</h2>
       <Form
         fields={[

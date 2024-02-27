@@ -124,8 +124,8 @@ const CreateCard = () => {
   };
 
   return (
-    <div className={css.Container}>
-      <h2>NGN-Телефон Хэрэглэгчийн карт</h2>
+    <div className={css.bigContainer}>
+      <h1 className={css.h1}>NGN-Телефон Хэрэглэгчийн карт үүсгэх</h1>
       <Form onSubmit={save}>
         <Form.Item
           label="Хэрэглэгчийн дугаар:"

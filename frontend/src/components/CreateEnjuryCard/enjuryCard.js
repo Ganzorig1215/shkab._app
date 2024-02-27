@@ -75,32 +75,42 @@ const EnjuryCard = () => {
   const Navigate = useNavigate();
   const { usernumber } = useParams();
   return (
-    <div>
-      <h2>NGN-Телефон Хэрэглэгчийн карт</h2>
+    <div className={css.bigContainer}>
+      <h1 className={css.h1}>NGN-Телефон Хэрэглэгчийн картын гэмтэл үүсгэх</h1>
 
       <table>
         <tbody>
           <tr>
-            <td colSpan="2">Гарсан гэмтэл</td>
-            <td colSpan="3">Шалгалт</td>
-            <td colSpan="2">Засуулахаар өгсөн</td>
-            <td colSpan="4">Зассан</td>
+            <td className={css.td} colSpan="2">
+              Гарсан гэмтэл
+            </td>
+            <td className={css.td} colSpan="3">
+              Шалгалт
+            </td>
+            <td className={css.td} colSpan="2">
+              Засуулахаар өгсөн
+            </td>
+            <td className={css.td} colSpan="4">
+              Зассан
+            </td>
           </tr>
           <tr>
-            <td>Он сар өдөр Цаг минут</td>
-            <td>Юуны тухай</td>
-            <td>Цаг минут</td>
-            <td>Шалгалтын ширээнээс гарсан гэмтлийн байдал</td>
-            <td>Гарын үсэг</td>
-            <td>Он сар өдөр Цаг минут</td>
-            <td>Хэнд</td>
-            <td>Он сар өдөр Цаг минут</td>
-            <td>Хэнд</td>
-            <td>Гэмтлийн байдал</td>
-            <td>Тайлбар</td>
+            <td className={css.td}>Он сар өдөр Цаг минут</td>
+            <td className={css.td}>Юуны тухай</td>
+            <td className={css.td}>Цаг минут</td>
+            <td className={css.td}>
+              Шалгалтын ширээнээс гарсан гэмтлийн байдал
+            </td>
+            <td className={css.td}>Гарын үсэг</td>
+            <td className={css.td}>Он сар өдөр Цаг минут</td>
+            <td className={css.td}>Хэнд</td>
+            <td className={css.td}>Он сар өдөр Цаг минут</td>
+            <td className={css.td}>Хэнд</td>
+            <td className={css.td}>Гэмтлийн байдал</td>
+            <td className={css.td}>Тайлбар</td>
           </tr>
           <tr>
-            <td>
+            <td className={css.td}>
               <Space direction="vertical" size={12}>
                 <DatePicker
                   showTime
@@ -116,7 +126,7 @@ const EnjuryCard = () => {
                 />
               </Space>
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="garsanGemtliinTuhai"
@@ -124,7 +134,7 @@ const EnjuryCard = () => {
                 value={enjury.garsanGemtliinTuhai}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <Space direction="vertical" size={12}>
                 <DatePicker
                   showTime
@@ -140,7 +150,7 @@ const EnjuryCard = () => {
                 />
               </Space>
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="shalgaltiinTuhai"
@@ -148,7 +158,7 @@ const EnjuryCard = () => {
                 value={enjury.shalgaltiinTuhai}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="shalgaltiinGariinUseg"
@@ -156,7 +166,7 @@ const EnjuryCard = () => {
                 value={enjury.shalgaltiinGariinUseg}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <Space direction="vertical" size={12}>
                 <DatePicker
                   showTime
@@ -172,7 +182,7 @@ const EnjuryCard = () => {
                 />
               </Space>
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="hendZasuulahaarUgsun"
@@ -180,7 +190,7 @@ const EnjuryCard = () => {
                 value={enjury.hendZasuulahaarUgsun}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <Space direction="vertical" size={12}>
                 <DatePicker
                   showTime
@@ -194,7 +204,7 @@ const EnjuryCard = () => {
                 />
               </Space>
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="zassanHend"
@@ -202,7 +212,7 @@ const EnjuryCard = () => {
                 value={enjury.zassanHend}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="zassanGemtliinBaidal"
@@ -210,7 +220,7 @@ const EnjuryCard = () => {
                 value={enjury.zassanGemtliinBaidal}
               />
             </td>
-            <td>
+            <td className={css.td}>
               <input
                 placeholder="Энд бөглөнө үү"
                 name="zassanTailbar"

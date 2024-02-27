@@ -1,4 +1,4 @@
-section {
+/* section {
   table {
     width: 100%;
     border-collapse: collapse;
@@ -15,14 +15,9 @@ section {
     background-color: #f2f2f2;
   }
 
-  .colored-cell {
-    background-color: #e6f7ff;
-  }
-
   input {
     width: 100%;
     box-sizing: border-box;
-    /* border: none; */
     border-top: none;
     border-left: none;
     border-right: none;
@@ -38,4 +33,18 @@ section {
   .hadgalah {
     top: 20px;
   }
+} */
+.h1 {
+  margin-top: 20px;
+  margin-bottom: 45px;
+}
+.hadgalah {
+  margin-top: 10px;
+}
+.bigContainer {
+  width: 95%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -24,6 +24,9 @@
   border-radius: 5px;
   margin-top: 25px;
   overflow-y: scroll;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
 }
 .container footer {
   width: 100%;

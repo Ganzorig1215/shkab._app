@@ -118,13 +118,14 @@ app.get("/registration", async (req, res) => {
     });
   }
 });
-app.put("/addAdmin/:id", (req, res) => {
-  const { id } = req.params.id;
-  console.log(id);
-  console.log(user);
+app.put("/addAdmin/:userId", (req, res) => {
+  const { userId } = req.params.userId;
+
+  console.log(userId);
   const { role } = req.body;
+  console.log(req.body);
   try {
-    db.query("UPDATE users SET role=? WHERE ID = ?", [role, id]);
+    db.query("UPDATE users SET role=? WHERE ID = ?", [role, userId]);
     return res
       .status(200)
       .json({ updated: true, message: "Амжилттай шинэчиллээ" });

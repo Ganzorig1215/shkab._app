@@ -14,16 +14,6 @@ import ResetPasswordForm from "./components/ResetPassword";
 import { message, notification } from "antd";
 
 function App() {
-  // const [token, setToken] = useState();
-
-  // useEffect(() => {
-  //   const token1 = localStorage.getItem("token");
-  //   setToken(token1);
-
-  //   // If there is no token, navigate to the login page
-  // }, []);
-  const { REACT_APP_BASE_URL } = process.env;
-  console.log(process.env.REACT_APP_BASE_URL);
   return (
     <div className="App">
       <BrowserRouter>
@@ -31,8 +21,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="ForgetPassword" element={<ForgetPassword />} />
           <Route path="ResetPasswordForm" element={<ResetPasswordForm />} />
-          {/* {token && (
-            <> */}
           <Route path="/CreateUsersCard" element={<CreateUsersCard />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/AddAdmin" element={<AddAdmin />} />
@@ -43,8 +31,6 @@ function App() {
             path="/CreateEnjuryCard/:usernumber"
             element={<CreateEnjuryCard />}
           />
-          {/* </>
-          )} */}
         </Routes>
       </BrowserRouter>
     </div>

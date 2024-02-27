@@ -8,28 +8,12 @@
   text-align: center;
 }
 
-.ant-table {
-  background-color: #fafafa !important;
-}
 .ant-menu {
-  background-color: #194569 !important;
+  background-color: #2e343d !important;
 }
 .ant-modal-content {
   overflow-y: scroll !important;
-  /* width: 1000px;
-  height: 600px !important;
-  display: flex;
-  flex-direction: column; */
-}
-.ant-modal-footer {
-  display: flex;
-  justify-content: center;
-  bottom: 5px !important;
-}
-.ant-modal-header {
-  display: flex;
-  justify-content: center;
-  bottom: 5px !important;
+  height: 600px;
 }
 .ant-form {
   display: flex;
@@ -38,9 +22,9 @@
   justify-content: space-between !important;
 }
 .ant-table-cell {
-  padding: 3px 3px !important;
-  border-bottom: none;
+  border: none;
 }
-/* .ant-list {
-  width: 50%;
-} */
+.ant-table {
+  /* box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5); */
+  overflow-x: unset;
+}
