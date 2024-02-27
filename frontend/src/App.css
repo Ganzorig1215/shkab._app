@@ -9,7 +9,7 @@
 }
 
 .ant-menu {
-  background-color: #2e343d !important;
+  background-color: #194569 !important;
 }
 .ant-modal-content {
   overflow-y: scroll !important;
@@ -26,5 +26,4 @@
 }
 .ant-table {
   /* box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5); */
-  overflow-x: unset;
 }
