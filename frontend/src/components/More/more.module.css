@@ -5,7 +5,21 @@
   background-color: #f2f2f2;
 }
 .www {
+  width: 100%;
+  /* padding-bottom: 10px;
+  bottom: 10px; */
 }
+.container {
+  width: 96%;
+  height: 96%;
+}
+/* .container table {
+  width: 100%;
+}
+.ls {
+  width: 100%;
+  background-color: black;
+} */
 /* .bigContainer {
   width: 95%;
   height: 95%;

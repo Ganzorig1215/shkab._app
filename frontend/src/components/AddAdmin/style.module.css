@@ -25,6 +25,9 @@
   margin-top: 25px;
   display: flex;
   justify-content: center;
+  display: flex;
+  justify-content: center;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
 }
 .container footer {
   width: 100%;

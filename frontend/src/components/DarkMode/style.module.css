@@ -1,19 +1,19 @@
-/* .theme {
+/* style.module.css */
+
+.theme {
   display: flex;
   justify-content: space-between;
   width: 200px;
   margin: 20px;
 }
-.dark {
-  background-color: black;
-  color: white;
-}
+
 .lightDark {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
 .lightDark label {
   display: flex;
   flex-direction: row;
@@ -23,6 +23,7 @@
   background-color: #1a1a1a;
   color: #fff;
 }
+
 :root {
   --background: #fff;
   --text-primary: #000;
@@ -31,6 +32,7 @@
   --border: #333;
   --form-bg: #fff;
 }
+
 [data-theme="dark"] {
   --background: #000;
   --text-primary: #fff;
@@ -38,4 +40,4 @@
   --accent: #8e05c2;
   --border: #808080;
   --form-bg: #191919;
-} */
+}

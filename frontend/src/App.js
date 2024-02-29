@@ -14,6 +14,13 @@ import ResetPasswordForm from "./components/ResetPassword";
 import { message, notification } from "antd";
 
 function App() {
+  const [theme, setTheme] = useState();
+  useEffect(() => {
+    const theme1 = localStorage.getItem("theme");
+    setTheme(theme1);
+    theme;
+  });
+  console.log(theme);
   return (
     <div className="App">
       <BrowserRouter>

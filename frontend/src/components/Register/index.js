@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import css from "./style.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { BiSolidShow } from "react-icons/bi";
 import { notification } from "antd";
 
@@ -115,6 +115,12 @@ const Register = () => {
               </button>
             </div>
           </form>
+          <p className={css.backLink}>
+            Нэвтрэх хуудас руу <Link to="/Login">энд дарж</Link> шилжнэ үү.
+          </p>
+          {/* <p>
+            Нэвтрэх хуудас руу <a href="">энд дарж</a> шилжнэ үү.
+          </p> */}
         </div>
       </div>
     </section>

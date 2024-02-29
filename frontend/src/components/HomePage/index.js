@@ -4,7 +4,7 @@ import DashBoard from "../DashBoard";
 import Navbar from "../Navbar";
 import SideBar from "../SideBar";
 import { useNavigate } from "react-router-dom";
-import { Notification, notification } from "antd";
+import { Notification, notification, theme } from "antd";
 
 const HomePage = () => {
   const [token, setToken] = useState();
@@ -17,7 +17,7 @@ const HomePage = () => {
       notification.error({ message: "Нэвтэрч орно уу" });
       navigate("/login");
     }
-  });
+  }, [theme]);
   return (
     <div className={css.main}>
       <div className={css.SideBar}>

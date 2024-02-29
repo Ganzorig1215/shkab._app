@@ -17,17 +17,15 @@
   background-color: transparent;
   margin-left: 40px;
 }
-.test {
-  top: 35px;
+.radio {
+  margin-right: 100px;
+}
+.logout {
+  top: 10px;
   width: 100px;
   right: 80px;
 }
-.test1 {
-  top: 15px;
-  width: 100px;
-  right: 80px;
-}
-.logoutContainer {
+.radio .logoutContainer {
   top: 20px;
   display: flex;
   flex-direction: column;

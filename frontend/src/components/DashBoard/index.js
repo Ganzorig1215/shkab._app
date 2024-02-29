@@ -189,15 +189,15 @@ const Dashboard = () => {
             value={searchInput}
             onChange={handleSearchInputChange}
           /> */}
-          <Tooltip title="Карт үүсгэх">
-            <button
-              onClick={() => Navigate("/createUsersCard")}
-              className={css.iconButtons}
-            >
-              {/* <FaPlus /> */}
-              Карт үүсгэх
-            </button>
-          </Tooltip>
+          {/* <Tooltip title="Карт үүсгэх"> */}
+          <button
+            onClick={() => Navigate("/createUsersCard")}
+            className={css.iconButtons}
+          >
+            {/* <FaPlus /> */}
+            Карт үүсгэх
+          </button>
+          {/* </Tooltip> */}
         </div>
         <Table
           style={{ backgroundColor: "transparent", color: "red" }}

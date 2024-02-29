@@ -118,14 +118,13 @@ app.get("/registration", async (req, res) => {
     });
   }
 });
-app.put("/addAdmin/:userId", (req, res) => {
-  const { userId } = req.params.userId;
-
-  console.log(userId);
-  const { role } = req.body;
+app.put("/addAdmin/:id", (req, res) => {
+  const { id } = req.params;
   console.log(req.body);
+  req.body.role = "admin";
+  const { role } = req.body;
   try {
-    db.query("UPDATE users SET role=? WHERE ID = ?", [role, userId]);
+    db.query("UPDATE users SET role=? WHERE ID = ?", [role, id]);
     return res
       .status(200)
       .json({ updated: true, message: "Амжилттай шинэчиллээ" });
@@ -138,16 +137,22 @@ app.put("/addAdmin/:userId", (req, res) => {
   }
 });
 
-app.post("/remove-admin", (req, res) => {
-  const { userId } = req.body;
-
-  const user = user.find((u) => u.id === userId);
-
-  if (user) {
-    user.role = "user";
-    res.json({ message: "Admin removed successfully" });
-  } else {
-    res.status(404).json({ error: "User not found" });
+app.put("/removeAdmin/:id", (req, res) => {
+  const { id } = req.params;
+  console.log("dfdfdsf");
+  req.body.role = "user";
+  const { role } = req.body;
+  try {
+    db.query("UPDATE users SET role=? WHERE ID = ?", [role, id]);
+    return res
+      .status(200)
+      .json({ updated: true, message: "Амжилттай шинэчиллээ" });
+  } catch (error) {
+    console.error("aldaa garlaa:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Шинэчилж чадсангүй",
+    });
   }
 });
 // Нэвтрэх
