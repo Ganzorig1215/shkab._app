@@ -59,6 +59,7 @@ const Dashboard = () => {
   const onChange = (page) => {
     setCurrentPage(page);
   };
+
   const onDeleteButtonClick = (userId) => {
     setDeleteUserId(userId);
     setDeleteShow(true);
@@ -83,6 +84,7 @@ const Dashboard = () => {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value.toLowerCase());
   };
+
   const columns = [
     {
       title: "№",
@@ -221,9 +223,9 @@ const Dashboard = () => {
           scroll={{ y: 500 }}
         />
         <Pagination
-          defaultCurrent={data?.currentPage}
+          current={currentPage}
           total={data?.totalPages}
-          onChange={onChange}
+          onChange={onChange} // Pass the onChange function here
         />
         {deleteShow && (
           <DeleteModal onCancel={onCancelDelete} onConfirm={onConfirmDelete} />

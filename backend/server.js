@@ -139,7 +139,6 @@ app.put("/addAdmin/:id", (req, res) => {
 
 app.put("/removeAdmin/:id", (req, res) => {
   const { id } = req.params;
-  console.log("dfdfdsf");
   req.body.role = "user";
   const { role } = req.body;
   try {

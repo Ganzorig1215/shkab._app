@@ -18,9 +18,7 @@ function App() {
   useEffect(() => {
     const theme1 = localStorage.getItem("theme");
     setTheme(theme1);
-    theme;
   });
-  console.log(theme);
   return (
     <div className="App">
       <BrowserRouter>

@@ -45,7 +45,7 @@ const Navbar = () => {
           <Radio value={1}>Light 🔆</Radio>
           <Radio value={2}>Dark🌙</Radio>
         </Radio.Group> */}
-        <DarkMode />
+        {/* <DarkMode /> */}
       </div>
       <div className={css.logoutContainer}>
         <Button className={css.logout} onClick={handleLogout}>
