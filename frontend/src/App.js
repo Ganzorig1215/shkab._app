@@ -31,9 +31,9 @@ function App() {
           <Route path="/AddAdmin" element={<AddAdmin />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/update/:id" element={<UpdateUser />} />
-          <Route path="/More/:usernumber" element={<More />} />
+          <Route path="/More/:userId" element={<More />} />
           <Route
-            path="/CreateEnjuryCard/:usernumber"
+            path="/CreateEnjuryCard/:userId"
             element={<CreateEnjuryCard />}
           />
         </Routes>

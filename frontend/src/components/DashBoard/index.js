@@ -22,6 +22,7 @@ import css from "./style.module.css";
 const Dashboard = () => {
   const [deleteShow, setDeleteShow] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
+  const [usernumber, setUsernumber] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -31,7 +32,7 @@ const Dashboard = () => {
   const Navigate = useNavigate();
   const { Search } = Input;
   const enjuryData = (record) => {
-    Navigate(`/more/${modalData.usernumber}`);
+    Navigate(`/more/${modalData.id}`);
   };
   const fetchData = async () => {
     try {
@@ -46,7 +47,7 @@ const Dashboard = () => {
   useEffect(() => {
     const userRole = localStorage.getItem("role");
     setRole(userRole);
-    if (modalData && modalData.usernumber) {
+    if (modalData && modalData.userId) {
     }
   }, [modalData]);
   useEffect(() => {
@@ -62,7 +63,9 @@ const Dashboard = () => {
 
   const onDeleteButtonClick = (userId) => {
     setDeleteUserId(userId);
+    setUsernumber(userId);
     setDeleteShow(true);
+    setModalData({ id: userId, usernumber: userId });
   };
   const onCancelDelete = () => {
     setDeleteUserId(null);
@@ -78,6 +81,7 @@ const Dashboard = () => {
       })
       .catch((err) => console.log(err));
     setDeleteUserId(null);
+    setUsernumber(null);
     setDeleteShow(false);
   };
   const { id } = useParams();
@@ -122,7 +126,7 @@ const Dashboard = () => {
       dataIndex: "plusEnjury",
       key: "plusEnjury",
       render: (_, record) => (
-        <Link to={`/CreateEnjuryCard/${record.usernumber}`}>
+        <Link to={`/CreateEnjuryCard/${record.id}`}>
           <button className={css.iconButton}>
             <FaPlus />
           </button>
@@ -149,7 +153,7 @@ const Dashboard = () => {
       render: (_, record) => (
         <button
           className={css.iconButton}
-          onClick={() => onDeleteButtonClick(record.id)}
+          onClick={() => onDeleteButtonClick(record.id, record.userId)}
         >
           <MdDelete />
         </button>

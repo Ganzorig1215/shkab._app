@@ -24,7 +24,7 @@ const EnjuryCard = () => {
     e.persist();
     setEnjury({ ...enjury, [e.target.name]: e.target.value });
   };
-  const [test, setTest] = useState();
+  const [test, setTest] = useState("");
   const handleDateChange = (date, dateString, name) => {
     setTest((prevEnjury) => ({
       ...prevEnjury,
@@ -62,7 +62,7 @@ const EnjuryCard = () => {
         },
       ],
     };
-    const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury/${usernumber}`;
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury/${userId}`;
     console.log(apiUrl);
     axios
       .post(apiUrl, data)
@@ -73,7 +73,7 @@ const EnjuryCard = () => {
       .catch((error) => {});
   };
   const Navigate = useNavigate();
-  const { usernumber } = useParams();
+  const { userId } = useParams();
   return (
     <div className={css.bigContainer}>
       <h1 className={css.h1}>NGN-Телефон Хэрэглэгчийн картын гэмтэл үүсгэх</h1>
@@ -232,7 +232,7 @@ const EnjuryCard = () => {
         </tbody>
       </table>
 
-      <Button type="primary" onClick={save} className={css.aaa}>
+      <Button type="primary" onClick={save} className={css.saveButton}>
         Хадгалах
       </Button>
     </div>

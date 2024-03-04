@@ -9,9 +9,11 @@ const PORT = process.env.PORT || 4000;
 const http = require("http");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cardRouter = require("./routes/card");
 const nodemailer = require("nodemailer");
-const { info } = require("console");
+const { info, error } = require("console");
 dotenv.config({ path: "../config.env" });
+app.use("/", cardRouter);
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
@@ -31,11 +33,11 @@ app.post("/send-code", (req, res) => {
     subject: "Verification Code",
     text: `Your verification code is: ${code}`,
   };
-  console.log(email);
-  console.log(req.body);
-  console.log(code);
-  console.log(mailOptions);
-  console.log(info);
+  // console.log(email);
+  // console.log(req.body);
+  // console.log(code);
+  // console.log(mailOptions);
+  // console.log(info);
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email:", error);
@@ -120,7 +122,6 @@ app.get("/registration", async (req, res) => {
 });
 app.put("/addAdmin/:id", (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
   req.body.role = "admin";
   const { role } = req.body;
   try {
@@ -171,23 +172,17 @@ app.post("/login", async (req, res) => {
     }
 
     const storedHashedPassword = userData[0].password;
-
     const passwordMatch = await bcrypt.compare(password, storedHashedPassword);
-
     if (!passwordMatch) {
       return res.status(401).json({
         success: false,
         message: "Нууц үг таарахгүй байна!!!",
       });
     }
-
     const userWithoutPassword = { ...userData[0] };
     const { role } = userData[0];
     const { name } = userData[0];
-    console.log(name);
-    console.log(role);
     delete userWithoutPassword.password;
-    console.log(userData);
     const token = jwt.sign(
       { userId: userWithoutPassword.id, email: userWithoutPassword.email },
       "your_secret_key",
@@ -195,7 +190,6 @@ app.post("/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-
     return res.status(200).json({
       success: true,
       token: token,
@@ -212,14 +206,14 @@ app.post("/login", async (req, res) => {
 });
 
 // POST хүсэлтийг хүлээн авах
-app.post("/enjury/:usernumber", (req, res) => {
-  const usernumber = req.params.usernumber;
+app.post("/enjury/:userId", (req, res) => {
+  const userId = req.params.userId;
   const { garsanGemtel, shalgalt, fixing, fixed } = req.body;
 
   try {
     db.query(
-      "INSERT INTO enjuryCard (enjury, `check`, fixing, fixed, usernumber) VALUES (?,?,?,?,?)",
-      [garsanGemtel, shalgalt, fixing, fixed, usernumber]
+      "INSERT INTO enjuryCard (enjury, `check`, fixing, fixed, userId) VALUES (?,?,?,?,?)",
+      [garsanGemtel, shalgalt, fixing, fixed, userId]
     );
 
     return res.status(200).json({
@@ -235,58 +229,7 @@ app.post("/enjury/:usernumber", (req, res) => {
     });
   }
 });
-app.post("/users/create", (req, res) => {
-  const {
-    userNumber,
-    userName,
-    address,
-    specialNote,
-    stationNumber,
-    longMetr,
-    wardrobeNumber,
-    wardrobeClass1,
-    wardrobeClass2,
-    tavisan,
-    shiljuulsen,
-    huraasan,
-    nomerSolison,
-    nerSolison,
-  } = req.body;
-  console.log(req.body);
-  try {
-    db.query(
-      "INSERT INTO userscard (usernumber, username, address, specialNote, stationNumber, longMetr, wardrobeNumber, wardrobeClass1, wardrobeClass2, install, transfer, collect, changeNumber, changeName, createDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())",
-      [
-        userNumber,
-        userName,
-        address,
-        specialNote,
-        stationNumber,
-        longMetr,
-        wardrobeNumber,
-        wardrobeClass1,
-        wardrobeClass2,
-        tavisan,
-        shiljuulsen,
-        huraasan,
-        nomerSolison,
-        nerSolison,
-      ]
-    );
-    console.log(req.body);
-    return res.status(200).json({
-      success: true,
-      message: "Амжилттай хадгаллаа",
-      send: req.body,
-    });
-  } catch (error) {
-    console.error("Алдаа гарлаа:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Дотоод серверийн алдаа",
-    });
-  }
-});
+
 app.get("/", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -317,13 +260,13 @@ app.get("/", async (req, res) => {
   }
 });
 app.get("/enjury", async (req, res) => {
-  const usernumber = req.params.usernumber;
+  const userId = req.params.userId;
+  console.log(userId);
   try {
-    const { usernumber } = req.query;
+    const { userId } = req.query;
     const enjuryData = await db.query(
-      `SELECT * FROM enjuryCard WHERE usernumber = '${usernumber}'`
+      `SELECT * FROM enjuryCard WHERE userId = '${userId}'`
     );
-    console.log(enjuryData);
     return res.status(200).json({
       success: true,
       data: enjuryData,
@@ -371,7 +314,6 @@ app.put("/update/:id", (req, res) => {
     changeNumber,
     changeName,
   } = req.body;
-  console.log(req.body);
 
   try {
     db.query(
@@ -408,9 +350,7 @@ app.put("/update/:id", (req, res) => {
 
 app.delete("/delete/:deleteUserId", (req, res) => {
   const id = req.params.deleteUserId;
-  console.log(id);
-
-  db.query("DELETE FROM userscard WHERE ID =?", [id], (error, results) => {
+  db.query("DELETE FROM userscard  WHERE ID =?", [id], (error, results) => {
     if (error) {
       console.log("Aldaa garlaa", error);
       return res.status(500).json({
@@ -428,6 +368,19 @@ app.delete("/delete/:deleteUserId", (req, res) => {
     .catch((error) => {
       throw error;
     });
+  db.query(
+    "DELETE FROM enjuryCard  WHERE userId =?",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.log("Aldaa garlaa", error);
+        return res.status(500).json({
+          success: false,
+          message: "Устгаж чадсангүй",
+        });
+      }
+    }
+  );
 });
 
 // Бүртгэл
@@ -449,7 +402,28 @@ app.get("/userInfo", async (req, res) => {
     });
   }
 });
+app.delete("/deleteEnjury/:enjuryId", async (req, res) => {
+  const enjuryId = req.params.enjuryId;
+  try {
+    await db.query("DELETE FROM enjuryCard WHERE ID=?", [enjuryId]);
 
+    return res.status(200).json({
+      success: true,
+      message: "Successfully deleted the injury record",
+    });
+  } catch (error) {
+    console.error("Error deleting enjury record:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+const createUser = (req, res, next) => {
+  console.log(`${req.method} ${req.protocol}://${req.host}${req.originalUrl}`);
+  next();
+};
+app.use(createUser);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });

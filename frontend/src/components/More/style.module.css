@@ -22,12 +22,13 @@
   margin-left: 40px;
   background-color: #fafafa;
   border-radius: 5px;
-  /* margin-top: 25px; */
+  margin-top: 25px;
   overflow-y: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
 }
 .container footer {
   width: 100%;

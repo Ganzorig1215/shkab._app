@@ -26,3 +26,8 @@
   display: flex;
   align-items: center;
 } */
+.deleteButton {
+  background-color: none;
+  border: none;
+  color: none;
+}
