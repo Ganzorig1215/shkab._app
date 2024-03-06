@@ -63,7 +63,6 @@ const EnjuryCard = () => {
       ],
     };
     const apiUrl = `${process.env.REACT_APP_BASE_URL}/enjury/${userId}`;
-    console.log(apiUrl);
     axios
       .post(apiUrl, data)
       .then((res) => {

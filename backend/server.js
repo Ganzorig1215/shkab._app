@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 4000;
 const http = require("http");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cardRouter = require("./routes/card");
+// const cardRouter = require("./routes/card");
 const nodemailer = require("nodemailer");
 const { info, error } = require("console");
 dotenv.config({ path: "../config.env" });
-app.use("/", cardRouter);
+// app.use("/", cardRouter);
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
@@ -23,6 +23,58 @@ const transporter = nodemailer.createTransport({
     user: "ganzorig@mtcone.net",
     pass: "99972613Aa",
   },
+});
+app.post("/users/create", (req, res) => {
+  const {
+    userNumber,
+    userName,
+    address,
+    specialNote,
+    stationNumber,
+    longMetr,
+    wardrobeNumber,
+    wardrobeClass1,
+    wardrobeClass2,
+    tavisan,
+    shiljuulsen,
+    huraasan,
+    nomerSolison,
+    nerSolison,
+  } = req.body;
+  console.log(req.body);
+  try {
+    db.query(
+      "INSERT INTO userscard (usernumber, username, address, specialNote, stationNumber, longMetr, wardrobeNumber, wardrobeClass1, wardrobeClass2, install, transfer, collect, changeNumber, changeName, createDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())",
+      [
+        userNumber,
+        userName,
+        address,
+        specialNote,
+        stationNumber,
+        longMetr,
+        wardrobeNumber,
+        wardrobeClass1,
+        wardrobeClass2,
+        tavisan,
+        shiljuulsen,
+        huraasan,
+        nomerSolison,
+        nerSolison,
+      ]
+    );
+    console.log(req.body);
+    return res.status(200).json({
+      success: true,
+      message: "Амжилттай хадгаллаа",
+      send: req.body,
+    });
+  } catch (error) {
+    console.error("Алдаа гарлаа:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Дотоод серверийн алдаа",
+    });
+  }
 });
 app.post("/send-code", (req, res) => {
   const { email } = req.body;
@@ -209,6 +261,8 @@ app.post("/login", async (req, res) => {
 app.post("/enjury/:userId", (req, res) => {
   const userId = req.params.userId;
   const { garsanGemtel, shalgalt, fixing, fixed } = req.body;
+  console.log(req.body);
+  console.log(userId);
 
   try {
     db.query(
